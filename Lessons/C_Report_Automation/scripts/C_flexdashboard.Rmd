@@ -1,0 +1,107 @@
+---
+title: "Weekly Patient Report"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: 
+      version: 4
+      bootswatch: minty
+    orientation: rows
+    vertical_layout: scroll
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(rbokeh)
+library(ggplot2)
+library(ggthemes)
+library(DT)
+
+# Example layouts: https://pkgs.rstudio.com/flexdashboard/articles/examples.html
+# Change the theme using bootswatch: https://bootswatch.com/default/
+
+# set wd
+setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+
+# Identify the file in the directory
+searchPattern <- 'Wk4'
+pth <- "~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/C_Mar6/data"
+pth <- list.files(path = pth, pattern = searchPattern, full.names = T)
+pth <- pth[grep('*.csv', pth)]
+df  <- read.csv(pth)
+```
+
+Row 
+-----------------------------------------------------------------------
+
+### Report Date
+
+```{r date}
+valueBox(Sys.Date(), 
+         icon = "fa-calendar-check-o", #http://fontawesome.io/icon/calendar-check-o/
+         color = "#bada55")
+
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Age Distribution
+
+```{r histogram, message=FALSE}
+ggplot(data = df, aes(age)) + geom_density(color = 'red') + theme_gdocs()
+```
+
+Row {data-height=350}
+-------------------------------------
+   
+### Relationships Age Num Meds
+
+```{r scatter1, message=FALSE}
+figure(height=350) %>%
+  ly_points(x=age, y=num_medications,data=df ,
+            hover = list(patient_id, age, num_medications)) %>%
+  x_axis(label='age') %>%
+  y_axis(label='number meds') %>%
+  theme_axis("x", major_label_orientation = 90) 
+```   
+    
+### Relationships Age Num Procedures
+
+```{r scatter2, message=FALSE}
+figure(height=350) %>%
+  ly_points(x=age, y=num_lab_procedures,data=df ,hover = list(patient_id)) %>%
+  x_axis(label='age') %>%
+  y_axis(label='number meds') %>%
+  theme_axis("x", major_label_orientation = 90) 
+```
+
+Row 
+-------------------------------------
+
+### basic table info
+
+```{r table1, message=FALSE}
+knitr::kable(as.matrix(table(df$race)))
+```
+
+### better formatted table info
+
+```{r table2, message=FALSE}
+labs <- as.matrix(summary(df$num_lab_procedures))
+labs <- data.frame(amt = rownames(labs),
+                  freq = labs[,1],
+                  row.names = NULL)
+knitr::kable(labs)
+```
+
+Row 
+-------------------------------------
+
+### dynamic table info
+
+```{r table3, message=FALSE}
+# Only showing a portion of the table for example; limit this because will make the file larger
+DT::datatable(df[1:100,1:5], 
+              options = list(bPaginate = TRUE))
+```
+

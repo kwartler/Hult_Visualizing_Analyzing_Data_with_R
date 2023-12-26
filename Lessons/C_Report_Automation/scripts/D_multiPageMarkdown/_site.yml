@@ -1,0 +1,26 @@
+name: "Multiple Page Examples"
+navbar:
+  title: "Multi-Dashboard"
+  left: 
+    - text: "home"
+      href: home.html
+    - text: "FAANG Stocks"
+      menu:
+      - text: "Facebook - Meta"
+        href: fb.html
+      - text: "Amazon"
+        href: amzn.html
+      - text: "Apple"
+        href: aapl.html
+      - text: "Netflix"
+        href: nflx.html
+      - text: "Google"
+        href: goog.html
+    - text: "Class GitHub"
+      icon: fa-github
+      href: https://github.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R
+
+output:
+  html_document:
+    theme: cerulean
+

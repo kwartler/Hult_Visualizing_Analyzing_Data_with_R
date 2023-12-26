@@ -1,0 +1,55 @@
+---
+title: nflx
+---
+
+### Netflix Stock
+
+```{r, echo = F, message = F}
+options(scipen = 999)
+library(TTR)
+library(quantmod)
+library(echarts4r)
+library(dplyr)
+stk <- getSymbols("nflx", auto.assign = F) 
+stk <- as.data.frame(stk)
+names(stk) <- sapply(strsplit(names(stk),'[.]'), tail, 1)
+stk$date <- row.names(stk)
+```
+
+```{r,echo = F, message = F}
+
+# Make a candlestick chart; assign ID eChart1
+eChart1 <- stk %>% 
+  e_charts(date, elementId = "eChart1") %>% 
+  e_candle(Open, Close, Low, High) %>% 
+  e_datazoom(type = "slider") %>% 
+  e_tooltip(trigger = "axis") %>% 
+  e_theme("dark-mushroom") %>% 
+  e_color(background = "transparent") %>%
+  e_group("grp")
+
+# Get the MACD calc
+stkMACD <-  MACD(stk$Close, 
+                 nFast = 12, 
+                 nSlow = 26, 
+                 nSig = 9, 
+                 maType='SMA',
+                 percent = TRUE)
+stkMACD <- as.data.frame(stkMACD)
+stkMACD$date <- stk$date
+stkMACD$MACDdiff <- stkMACD$macd - stkMACD$signal
+
+# Make a TTR for MACD chart
+eChart2 <- stkMACD%>% e_charts(date) %>% 
+  e_line(MACDdiff) %>% 
+  e_datazoom(type = "slider", show= F) %>% 
+  e_tooltip(trigger = "axis") %>% 
+  e_theme("dark-mushroom") %>% 
+  e_color(background = "transparent") %>%
+  e_connect(c("eChart1")) # connect to eChart1
+# If you have multiple 3+ you assign IDs to 1 & 2, then connect the last one with e_connect(c("eChart1","eChart2")) etc.
+
+# Render both
+e_arrange(eChart1, eChart2)
+
+```

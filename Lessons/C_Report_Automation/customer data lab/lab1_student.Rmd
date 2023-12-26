@@ -1,0 +1,418 @@
+---
+title: "Lab1"
+author: "Enter Name"
+date: "2023-01-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+options(scipen=999)
+#knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+## Read in the data
+
+```{r dataRead, echo=FALSE, message = FALSE}
+# Not Run
+#cuDF <- readr::read_csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/C_Mar6/customer%20data%20lab/grpN_10_fakeCustomerData.csv')
+```
+
+## Or Alternatively, load the function and create your own data set with parameters
+
+```{r dataConstruction, echo=FALSE, message=FALSE}
+sourceURL <- "https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/C_Mar6/customer%20data%20lab/dataMaker.R"
+devtools::source_url(sourceURL)
+prods <- data.frame(category    = rep(c('Food','Non-Food')),
+                    subcategory = c('Beverages','Sanitary','Dairy','Household'))
+cuDF <- makeFakeCuData(cuN              = 10000, 
+                       nSKUs            = 100, 
+                       minPrice         = 5, 
+                       maxPrice         = 50, 
+                       transactionN     = 1000000,
+                       outliers         = T,
+                       monthSpike       = 12,
+                       peakN            = 'y', 
+                       startDate        = "2022-01-01", 
+                       endDate          = "2022-12-31", 
+                       paretoHighCu     = 80, #80% transaction from 20% of customers
+                       paretoLowCu      = 20, 
+                       paretoHighSKU    = 70,#70% of SKU revs sold from 30% of SKU itemss
+                       paretoLowSKU     = 30,
+                       augment          = T, #add more fake variables from other table
+                       productHierarchy = prods)
+```
+
+## Examine the data
+
+<details>
+<summary>Show Example of the Data</summary>
+```{r dataHead, echo=FALSE}
+knitr::kable(head(cuDF))
+```
+</details>
+
+## 1. Identify the top 10 states by number of customers. 
+
+*We will use `dplyr` because its easier but the prof will show base-R version with `aggregate`.*
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `customerByStateB` using `cuDF` 
+     - apply `group_by` to `state`
+     - apply `summarise` to create a variable `count` equal to `n_distinct` applied to the `customer` column.
+     - apply `slice_max` with `n` equal to 10, referring to the `count` column previously created.
+</details>
+
+<details>
+<summary>Plot Instructions</summary>  
+- Create a `ggplot` with data `customerByStateB`. 
+     - Aesthetics are declared so `x` equals `reorder(state, -count)`, `y` equals `count`.  This will reorder the bar from largest to smallest instead of the order of the factor levels.
+     - Add a `geom_col` layer with `fill` color `#bada55`, 
+     - Add the `theme_gdocs()` layer
+     - Adjust the `theme` to rotate the x-axis labels 90 degrees.  This requires a new layer `theme()` with the parameter `axis.text.x` equal to `element_text(angle = 90)`
+     , and add the following labels/titles
+     - Add a layer `xlab` with the string "States" 
+     - Add a layer `ylab` with the string "Number of Customers"
+     - Add the title layer with `ggtitle` and the string "Top States by Number of Customers"
+</details>
+
+<details><summary>Show Plot</summary>
+
+```{r numCustomers, echo=FALSE}
+# dplyr version
+customerByStateB <- ____ %>%
+  ____(____) %>%
+  ____(____ = ____(____)) %>%
+  ____(____= ____, ____)
+
+# Now lets plot a bar chart
+____(data = ____, aes(x = ____(____, -____), y = ____)) + 
+  ____(fill = '#____') + 
+  ____() + 
+  ____(axis.text.x =____) +
+  ____(____) + 
+  ____(____) + 
+  ____(____) +
+  # Optional for bar labels
+  geom_text(aes(label = count, x = state), vjust = 1.5)
+  
+
+```
+</details>
+
+
+## 2. Create a stacked bar chart in ggplot2
+<details>
+<summary>Data Prep Instructions</summary>
+
+- Using `table()` tabulate the `cuDF` by `state` & `SKU` columns, nest this inside `as.data.frame` in an object called `SKUbyStateA`
+- Use `order()` to reorder the `SKUbyStateA` by `Var1`
+- Remove rows where `Freq!=0`
+
+*Prof will show a `dplyr` method too*
+
+- Create `idx` as a Boolean vector checking whether `SKUbyStateA$Var1` is `%in%` the `customerByStateB$state` column (this is from the previous section).
+- Use `idx` to filter `SKUbyStateA` rows within square brackets.
+- Left-hand assign a new column called `quartile` to `SKUbyStateA`.  It is calculated by applying `ntile` to the `Freq` with the integer parameter `4` for quartiles.  *You can also use `mutate` if you're doing `dplyr`.*
+- Create `top` using `subset` applied to `SKUbyStateA` where the new `quartile` column is equal to `4`.
+- Re`order` the `top` object based on the `Freq` column. 
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+- Create the `ggplot` with `top` with declared aesthetics as 
+     - `x` **reordered** with `Var1` descending from `Freq`.  See last plot for hint.
+     - `y` referring to `Freq`
+     - `fill` as `Var2`
+- Add a layer using `geom_bar`.  To create a stacked bar chart use `position="stack"` and `stat="identity"`.  The `color` equals `darkgrey` and add the parameter `show.legend = F` to remove the legend.
+- Add a text layer with `geom_text` with the following parameters.
+     - `aes(label = Var2)` refers to the column of string labels.
+     - `size = 2` to adjust the label size
+     - `position = position_stack(vjust = 0.5)` to get the labels stacked up with each section
+- Add the google docs theme
+- Rotate the x-axis labels 90 degrees
+- Adjust the x-axis label to be "States"
+- Adjust the y-axis label to be "SKU Volume"
+- Add a title of "Top States & Top SKUs"
+</details>
+
+<details>
+<summary>Show Plot</summary>
+
+```{r stackedBar, echo=FALSE}
+# Base R
+SKUbyStateA <- ____(____(cuDF$____, cuDF$____))
+SKUbyStateA <- ____[____(SKUbyStateA$____),]
+SKUbyStateA <- ____[SKUbyStateA$____= ____, ]
+
+# Subset to the top 10 states
+idx <- ____ %in% ____
+SKUbyStateA <- ____[____,] # 10 states * 100 SKUs = 1000 rows
+
+# Identify the quartiles and group the rest
+SKUbyStateA$quartile <- ____(____$____, ____)
+top <- ____(____, ____$____==____) #top quartile
+top <- top[____(____$____),]
+
+# Build the plot
+____(____, ____(____, ____, x=____(____, -____))) + 
+    ____(position="____", stat="____", ____, show.legend = F) + #identity means use actual values
+  ____(aes(____), ____, position = ____(____)) + 
+  ____ + 
+  theme(____) +
+  ____ + 
+  ____ + 
+  ____ 
+```
+</details>
+
+## 3. Stacked Percentage bar chart
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `stateSpend` with `aggregate` on the `cuDF` data `Price` by `state` & apply `sum`
+- Create `topState` using square brackets on `stateSpend`.  Apply `which.max` applied to the `Price` column to the left of the comma.
+- Create `lowState` using square brackets on `stateSpend`.  Apply `which.min` applied to the `Price` column to the left of the comma.
+- Finally create `plotDF` by applying `subset` to `cuDF` where `$state` is equal to `topState$state[1]` OR (use the pipe `|` operator) `lowState$state[1]` 
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+
+- Create a `ggplot` with `plotDF` with aesthetics
+     - `fill` is `subcategory`
+     - `y` is `Price`
+     - `x` is `state`
+- Add a `geom_bar` layer with paramters
+     - `position="fill"`
+     - `stat="identity"`
+- Add the highcharts theme `theme_hc()` as a layer 
+</details>
+<details>
+<summary>Show Plot</summary>
+```{r pctBar, echo=FALSE}
+# Just the top state
+____ <- ____(____ ~ ____, ____, ____)
+topState   <- stateSpend[____(____$____),]
+lowState   <- ____[____(____$____),]
+____     <- ____(____, ____|____)
+
+____(____, aes(____, ____, ____)) + 
+  ____(____, ____) + 
+  ____()
+
+```
+</details>
+
+## 4. Create a histogram of customer age
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Create the `individuals` object by applying `!duplicated` to the `customer` column of `cuDF` within square brackets.  The `!` operated negates a Boolean (switches T to F & vice-versa)
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+- Use `individuals` to create a `ggplot` with `aes` and `x=age`.  No need for a Y with a histogram.
+     - Add the `geom_histogram` layer so that the bars are `fill`ed with `#C00C00` and outline `color` is `darkgrey`
+     - Add the `theme_fivethirtyeight()`
+     - Add a title with "Customer Age Distribution"
+</details>
+<details>
+<summary>Show Plot</summary>
+```{r cuHist, echo=FALSE, message = FALSE}
+# Base R
+____ <- ____[!____(____$____),]
+
+# Plot
+____(____, ____) + 
+  ____(____, ____) +
+____() +
+  ____(____) 
+  
+```
+</details>
+
+
+## 5. Create a kernel density plot of customer spend 
+i.e. how much did customer cust06276 spend vs cust02262 then create a distribution. 
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `householdSpend` using `aggregate()` with `Price` by `customer` applied to the `cuDF`.  The function to apply is `sum`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+- Create a `ggplot`with `householdSpend`.  The aesthetics should be `x = Price`.  No need to have a y-defined with a density plot.
+     - Add a `geom_density` layer, `fill`ed with `#c0ffee`.
+     - Add the `few()` theme
+     - Add a title with "Avg Household Spend"
+</details>
+
+<details>
+<summary>Show Plot</summary>
+```{r cuDensity, echo=FALSE}
+# Base R 
+____ <- ____(____ ~ ____, ____, ____)
+
+____(____, aes(____)) + 
+  ____(____) + 
+  ____() + 
+  ____
+```
+</details>
+
+## 6. Build a box plot of each subcategory for the top state by revenue 
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Use `aggregate` again but now `sum` using the `Price` by the `state` in an object called `stateSpend`
+- Create `topState` by applying `which.max` to the `Price` column of `stateSpend`.  This expression should be within square brackets of `stateSpend` (requires a comma for rows/columns).  This programmatically declares the top state name instead of explicit declaration.
+- Now `subset` the `cuDF` data frame where the `cuDF`'s `state` column equals `topState$state[1]`.  The new object should be called `plotDF`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+- Create an object `p` using `ggplot` with `plotDF`.  The aesthetics should be:
+     - `x` as `subcategory`
+     - `y` as `Price`
+     - `fill` as `subcategory`.
+     - Add a boxplot layer with `geom_boxplot` but with `position=position_dodge(width=0.8)` to ensure the labels align & add `show.legend=F` to remove the duplicative legend.
+     - Add a `few` theme
+- Next, use `aggregate` again to get the `mean` values of `Price` by `subcategory` from the `plotDF`.  Call this object `catSpend`.
+- Overwrite the `$Price` column (left side assignment) by applying `round()` to the `$Price` column
+- Add a layer to `p` with `geom_text`.  
+     - The data should be `catSpend`
+     - The aesthetics need `label = Price`
+     - Outside of the aesthetics, add `position=position_dodge(width=0.8)` to make sure the alignment is the same as the boxes.
+- Programmatically declare the title with `paste()` & `topState$state`
+     - Add a title "Top State Household Spend by Subcategory"
+</details>
+
+<details>
+<summary>Show Plot</summary>
+```{r stateBoxplot, echo=FALSE}
+# Base R
+____ <- ____(____ ~ ____, cuDF, ____)
+____   <- ____[____(____$____),]
+plotDF     <- ____(____, ____$____==____$____)
+
+# Initialize the plot
+p <- ____(____, aes(____, ____, ____)) + 
+  ____(____, ____) + 
+  theme____()
+
+# Get stats
+catSpend <- ____(____ ~ ____, ____, ____)
+____$____ <- round(____$____)
+
+# Add label layer & call the updated plot object
+p <- p + ____(data = ____, aes(____ = ____),____ = ____(____=0.8)) + 
+  ggtitle(____(____$____, ____))
+p
+```
+</details>
+
+## 7. Create a scatter plot between customer spend and EstHomeValue 
+
+[ this is a random data set so likely no actual trend but let's still learn!]
+
+**With so many points we will only plot a random sample of 1000 rows.**
+<details>
+<summary>Data Prep Instructions</summary>
+- Create `totalSpendByCu` using `aggregate` where it's `Price` by `customer` applied to `cuDF` a & `sum`
+- Create `idx` with the `sample` function referring to `1:nrow(cuDF)` amd the integer `1000`
+- Use `idx` within square brackets to obtain the random sample.  Call the object `sampSpendByCu`
+- Next drop duplicates in `cuDF` by the `customer` column. Call this object `indCuDF`. Hint use the `!duplicated` function above.  **We are only selecting specific columns for the plot, seen to the right of the comma as `names(cuDF)%in% c('customer','EstHomeValue', 'state')`**
+- Create `sampSpendByCu` using `inner_join`. The x-table is `sampSpendByCu`.  The y-table is `indCuDF`.  The join column is `by = "customer"` .  *Its not needed here but the best practice is explicit declaration of the `by` parameter.*`
+- The `EstHomeValue` column has a leading `$` in the string.  We will use `gsub` to globally substitute the `$` to nothing `''` within the column & nest this in `as.numeric` to re-declare the type.  
+- For the sake of learning, left-hand assign a column `$west` to `sampSpendByCu`.  Declare it using a logical operator `%in%` with `sampSpendByCu$state` & `c('Oregon', 'Washington','California')`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+- Create a `ggplot` with `sampSpendByCu`. Aesthetics should be:
+     - `x` is `EstHomeValue`
+     - `y` is `Price`
+     - `group` is `west`
+- Add a `geom_point` layer.  Aesthetics should be:
+     - `shape` is `west`
+     - `color` is `west`
+     - **outside** of the `aes` call, add `alpha = 0.5` to adjust the transparency
+- Add the theme `calc`
+- Add a title "House Value to Spend"
+</details>
+
+<details>
+<summary>Show Plot</summary>
+```{r cuHomeRevScatter, echo=FALSE, warning = F}
+# Sum the price by customer (total spend) within the sample
+____ <- ____(____~____, ____, ____)
+
+# Get a sample
+set.seed(2023)
+idx <- ____(____, ____)
+____ <- totalSpendByCu[____,]
+
+# In the original data, drop duplicates, and retain only  3 columns (join & data)
+indCuDF <- ____[____(cuDF$___), names(cuDF)%in% c('customer','EstHomeValue', 'state')]
+
+# Perform the join by ID
+sampSpendByCu <- ____(____, ____, ____=____)
+
+# Clean up the dollar column
+sampSpendByCu$EstHomeValue <- as.numeric(____('[$]',____,____$____))
+
+# Make a grouping to show the way to change shapes by group
+sampSpendByCu$____ <- sampSpendByCu$state  %in% c('____', '____','____')
+
+# Examine
+____(____, aes(x=____,____, group = west)) + 
+  ____(aes(____, ____), alpha = ____) +
+  theme_calc() + 
+  ____
+```
+
+</details>
+
+## 8. Plot a line chart of the total revenue by day
+
+<details>
+<summary>Data Prep Instructions</summary>
+- Declare `cuDF$timestamp` as a date object with `as.Date` in a new column called `date` (left assigned) 
+- `aggregate` the `Price` by the `date` of the `cuDF` object.  apply `sum`, call the new object `plotDF`
+</details>
+
+<details>
+<summary>Plot Instructions</summary>
+- Create a ggplot with `plotDF` with aesthetics
+     - `x` is `date` column
+     - `y` is the summed `Price` column
+- Add the `geom_line` layer with `alpha = 0.3`
+- Add the `gdocs` theme
+- Add `geom_smooth` with parameters `method=loess, se=FALSE` to add a curved trend line and remove confidence intervals.
+</details>
+
+
+<details>
+<summary>Show Plot</summary>
+```{r revByDayLine, echo=FALSE, message=FALSE}
+# Declare as data class
+cuDF$date <- ____(____$____)
+
+# Aggregate ID by date, get the length(total number of transactions by day)
+plotDF <- ____(____~____, ____,____)
+
+# Plot; removed the most, see if you can instantiate the ggplot with this little!
+____(____) + 
+  ____(____) +
+  ____ + 
+  ____(____, ____)
+
+```
+</details>
+
