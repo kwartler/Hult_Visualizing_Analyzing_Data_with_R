@@ -1,0 +1,30 @@
+# Number of Complete Rows
+sum(nComplete)
+[1] 9789
+
+# Number of duplicate rows
+dupes <- duplicated(storeData)
+sum(dupes)
+[1] 0
+
+# Distinct Categories of sales
+distinctCats <- unique(storeData$Category)
+distinctCats
+[1] "Furniture"       "Office Supplies" "Technology"  
+
+# Distinct Subcategory of sales 
+distinctSubCats <- unique(storeData$Sub.Category)
+distinctSubCats
+[1] "Bookcases"   "Chairs"      "Labels"      "Tables"      "Storage"    
+[6] "Furnishings" "Art"         "Phones"      "Binders"     "Appliances" 
+[11] "Paper"       "Accessories" "Envelopes"   "Fasteners"   "Supplies"   
+[16] "Machines"    "Copiers" 
+
+# Number of unique customers
+numCustomers  <- n_distinct(storeData$Customer.Name)
+numCustomers
+[1] 793
+
+# How were items shipped
+distinctShipMode <- unique(storeData$Ship.Mode)
+[1] "Second Class"   "Standard Class" "First Class"    "Same Day"  

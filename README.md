@@ -3,7 +3,7 @@ Hult University 2024 Spring Visualizing &amp; Analyzing Data with R: Methods &am
 
 # Class Schedule
 
-| #   |Topic                                             |Date 5:30-8:30pm EST   |
+| #   |Topic*                                             |Date 5:30-8:30pm EST   |
 |-----|--------------------------------------------------|-----------------------|
 | 1   |Intro/Admin                                       |Jan 16                 |
 | 2   |Intro to Analytics                                |Jan 18                 |
@@ -16,9 +16,12 @@ Hult University 2024 Spring Visualizing &amp; Analyzing Data with R: Methods &am
 
 # Assignment Schedules
 
-| #   |Topic                                             |Date 5:30-8:30pm EST   |
+| #   |Topic                                             |Due Date*              |
 |-----|--------------------------------------------------|-----------------------|
-| A1  |Retail Stores EDA                                 |Jan 16                 |
-| A2  |Household Spend                                   |Jan 18                 |
-| A3  |NLP                                               |Jan 23                 |
-| A4  |Reporting Assessment                              |Jan 25                 |
+| A1  |Retail Stores EDA 40%                             |Jan 16                 |
+| A2  |Household Spend 40%                               |Jan 18                 |
+| A3  |NLP   12%                                         |Jan 23                 |
+| A4  |Reporting Assessment 8%                           |Jan 25                 |
+
+
+**Keep in mind the class repository is not an official system of record.  The University system with due dates and rubrics is the official system of record and supercedes anything on the class repository.**
