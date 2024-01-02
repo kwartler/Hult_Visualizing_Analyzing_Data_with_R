@@ -18,10 +18,10 @@ Hult University 2024 Spring Visualizing &amp; Analyzing Data with R: Methods &am
 
 | #   |Topic                                             |Due Date*              |
 |-----|--------------------------------------------------|-----------------------|
-| A1  |Retail Stores EDA 40%                             |Jan 16                 |
-| A2  |Household Spend 40%                               |Jan 18                 |
-| A3  |NLP   12%                                         |Jan 23                 |
-| A4  |Reporting Assessment 8%                           |Jan 25                 |
+| A1  |Retail Stores EDA 40%                             |Jan 25                 |
+| A2  |Household Spend 40%                               |Feb 2                  |
+| A3  |NLP   12%                                         |Feb 7                  |
+| A4  |Reporting Assessment 8%                           |Jan 19                 |
 
 
 **Keep in mind the class repository is not an official system of record.  The University system with due dates and rubrics is the official system of record and supercedes anything on the class repository.**
