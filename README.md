@@ -31,12 +31,13 @@ Hult University 2024 Spring Visualizing &amp; Analyzing Data with R: Methods &am
 
 We may need to adjust these but this is a good start!
 
+```
 # Individually you can use 
 # install.packages('packageName') such as below:
 install.packages('ggplot2')
 
 # or 
-```
+
 install.packages('pacman')
 pacman::p_load(ggplot2, ggthemes, ggdark, rbokeh, maps, 
                ggmap, leaflet, radiant.data, DataExplorer,
