@@ -25,3 +25,30 @@ Hult University 2024 Spring Visualizing &amp; Analyzing Data with R: Methods &am
 
 
 **Keep in mind the class repository is not an official system of record.  The University system with due dates and rubrics is the official system of record and supercedes anything on the class repository.**
+
+
+### Packages to install
+
+We may need to adjust these but this is a good start!
+
+# Individually you can use 
+# install.packages('packageName') such as below:
+install.packages('ggplot2')
+
+# or 
+```
+install.packages('pacman')
+pacman::p_load(ggplot2, ggthemes, ggdark, rbokeh, maps, 
+               ggmap, leaflet, radiant.data, DataExplorer,
+               vtreat, dplyr, ModelMetrics, pROC,
+               MLmetrics, caret, e1071, plyr, 
+               rpart.plot, randomForest, forecast, dygraphs,
+               lubridate, jsonlite, tseries, ggseas,
+               arules,fst, recommenderlab,reshape2,
+               TTR,quantmod, htmltools,
+               PerformanceAnalytics,rpart, data.table,
+               pbapply, rbokeh, stringi, tm, qdap, readr,
+               dendextend, wordcloud, RColorBrewer,
+               tidytext, radarchart, RCurl, openNLP, xml2, stringr,
+               devtools, flexdashboard, rmarkdown, httr)
+```
