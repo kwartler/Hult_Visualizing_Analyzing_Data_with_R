@@ -12,14 +12,12 @@
 # libs
 library(radiant.data)
 library(DataExplorer)
-library(readr)
 
 # No sci notation!
 options(scipen = 999)
 
-
 # Read in Data
-iceCream <- read.csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/B_IntroToDM_BasicEDA/challenge!/mcBroken_august_12_2022.csv')
+iceCream <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/A_Intro_Admin/live_code/mcBroken_august_12_2022.csv')
 
 # Look at the bottom 6 rows
 
@@ -39,7 +37,7 @@ iceCream <- subset(________, ________$____=='2022-08-12')
 # what state has the highest _percentage_ of broken machines? This is a tough one, requiring you to know the total machines in a state, the total broken and to get the proportion.
 # hint, you can do this stepwise or you can employ the function prop.table()
 
-# create a map of the machines on this date (hint, use leaflet from first week script with "markerClusterOptions()")
+# create a map of the machines on this date (hint, use leaflet from an earlier script with "markerClusterOptions()")
 
 
 # are there any unusual data points that should be removed?  Subset the data to just US machines or a state of interest like MA
