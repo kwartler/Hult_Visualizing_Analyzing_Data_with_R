@@ -7,7 +7,7 @@
 #'
 
 ## Set the working directory
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Libs
 library(maps)
@@ -17,7 +17,7 @@ library(leaflet)
 library(mapproj)
 
 # Import
-amzn <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/data/amznWarehouses.csv')
+amzn <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/A_Intro_Admin/data/amznWarehouses.csv')
 
 # This is messy webscraped data, check out the state.
 tail(amzn$STATE,25)
