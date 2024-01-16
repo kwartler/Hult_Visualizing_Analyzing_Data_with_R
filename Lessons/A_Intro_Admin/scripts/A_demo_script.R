@@ -4,7 +4,7 @@
 #' Date: Feb 16, 2023
 
 # Step 1 Set the working directory: where's the fruit? Where should I save my outputs?
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Step 2 Load some libraries: Make R a customized piece of software
 options(scipen = 999)
@@ -12,7 +12,7 @@ library(ggplot2)
 library(ggthemes)
 
 # Step 3 Bring in some data: Go get our banana!
-scenesDF <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/A_Feb27/data/forceAwakens_definedScenes.csv')
+scenesDF <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/A_Intro_Admin/data/forceAwakens_definedScenes.csv')
 
 # Step 4 Apply functions: Perform the task we want on our data: Cut & Peel our banana!
 
