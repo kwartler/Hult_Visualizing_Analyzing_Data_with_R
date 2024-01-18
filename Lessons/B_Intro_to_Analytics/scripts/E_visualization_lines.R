@@ -1,20 +1,19 @@
 #' Author: Ted Kwartler
-#' Data: Feb 16,2023
+#' Data: Jan 18, 2024
 #' Purpose: R ggplot line chart examples
 #' Good resource: https://r-graphics.org/
 
 
 # wd
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # libs
 library(ggplot2)
 library(ggthemes)
 library(lubridate)
-library(qcc)
 
 # Load
-possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
+possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/MarthasVineyardCondo.csv')
 possiblePurchase <- as.data.frame(possiblePurchase)
 
 # Examine
@@ -61,7 +60,7 @@ ggplot(data = possiblePurchase, aes(x=month, y=NightOccupied, group=yr, color=yr
 
 
 # cumsum by group, really compelling with many groups and time component, could be a "line chart" also though
-rap <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/rapSongsTimeline_wrangledData.csv')
+rap <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/rapSongsTimeline_wrangledData.csv')
 head(rap)
 totalWords <- rap %>% group_by(song) %>% summarise(maxWords = max(cumulativeWords, na.rm=TRUE))
 totalTime <- rap %>% group_by(song) %>% summarise(endTime = max(endTime, na.rm=TRUE))

@@ -44,10 +44,10 @@ by_gf<-df%>%
 
 
 #color palette for plot
-pal_leo<-'#FD7600'
-pal_gf <-'#24C4C4'
-pal_bg<-'#030623'
-pal_annotate<-'#B6B6B6'
+pal_leo <- '#FD7600'
+pal_gf  <- '#24C4C4'
+pal_bg  <- '#030623'
+pal_annotate <- '#B6B6B6'
 
 #data for images and respective positions on x axis
 images<-data.frame(name=c("Leonardo DiCaprio", unique(df$gf)),

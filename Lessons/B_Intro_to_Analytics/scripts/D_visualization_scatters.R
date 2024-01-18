@@ -1,15 +1,14 @@
 #' Author: Ted Kwartler
-#' Data: Feb 16,2023
+#' Data: Jan 18, 2024
 #' Purpose: R bar visual ggplot scatter & bubble examples
 #' Good resource: https://r-graphics.org/
 
 # wd
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # libs
 library(ggplot2)
 library(ggthemes)
-library(ggdark)
 library(CalledStrike) 
 #devtools::install_github("bayesball/CalledStrike")
 #devtools::install_github("BillPetti/baseballr")
@@ -17,8 +16,7 @@ library(lubridate)
 library(dplyr)
 
 # Load
-possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
-possiblePurchase <- as.data.frame(possiblePurchase)
+possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/MarthasVineyardCondo.csv')
 
 # Clean it up - column names
 names(possiblePurchase) <- make.names(names(possiblePurchase))
@@ -74,16 +72,8 @@ ggplot(data = possiblePurchase, aes(x=NightOccupied, y=EffectiveGrossIncome, col
 # a Cleveland Dot plot, xy both class levels, color and size can be other dimensions but this shows only 3
 df <- subset(possiblePurchase, possiblePurchase$yr !='2020')
 ggplot(data = df, aes(x=yr, y=factor(month), size = NetOperatingIncome, color = NetOperatingIncome)) + 
-  geom_point() +  scale_colour_viridis_c(option = "magma")  + 
-  ggdark::dark_theme_gray() + 
-  theme(legend.position = "none") +
-  labs(x="year", y = "month", title= "Operating Income MV Condo")
-
-# Another view with 4 different continuous, the difference is subtle, here larger circles show more occupied nights, color is income.  If you could have a single very expensive night it could show up as a small dot but still be bright
-df <- subset(possiblePurchase, possiblePurchase$yr !='2020')
-ggplot(data = df, aes(x=yr, y=factor(month), size = NightOccupied, color = NetOperatingIncome)) + 
-  geom_point() +  scale_colour_viridis_c(option = "magma")  + 
-  ggdark::dark_theme_gray() + 
+  theme_few() +
+  geom_point()   +
   theme(legend.position = "none") +
   labs(x="year", y = "month", title= "Operating Income MV Condo")
 
@@ -98,7 +88,7 @@ incomes
 
 ggplot(incomes) + 
   geom_segment(aes(x=minIncome, xend=maxIncome,
-                   y=factor(month), yend=factor(month)),size=2,  color = "#aeb6bf", alpha = 0.5) +
+                   y=factor(month), yend=factor(month)),linewidth=2,  color = "#aeb6bf", alpha = 0.5) +
   geom_point(data = incomes, aes(x=minIncome, y=factor(month)), color = 'red', size = 2) + 
   geom_point(data = incomes, aes(x=maxIncome, y=factor(month)), color = 'blue', size = 2) +
   geom_vline(xintercept = 0, linetype = 'dotted', color = 'darkgrey', size = 0.5) +
@@ -107,26 +97,28 @@ ggplot(incomes) +
 
 # Deal w over-plotting
 # Load other data, use the EXACT path on your computer
-pth <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/B_Mar2/data/player_copy.rds'
+pth <- '~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/Lessons/B_Intro_to_Analytics/data/player_copy.rds'
 player <- readRDS(pth)
 head(data.frame(player$plate_x, player$plate_z))
 pitchingLocations <- data.frame(plate_x = player$plate_x, plate_z = player$plate_z)
 basePlot <- ggplot(data = pitchingLocations, aes(x = plate_x, y = plate_z)) + ggtitle("Miguel Castro's Pitch Locations")
-basePlot + geom_point() + ggdark::dark_theme_classic()
+basePlot + geom_point(color = 'black') + theme_few()
 
 # Jitter, move dots slightly and add them in red to see how they move.  In reality you would not do it this way because it doubles points.
-basePlot + geom_point(color = 'red') + ggdark::dark_theme_classic() + geom_jitter(width = 0.7, height = 0.20)
+basePlot + geom_point(color = 'red') + theme_few() + 
+  geom_jitter(width = 0.7, height = 0.20)
 
-# This is the real way which just applies the gitter to a single set of points.
-basePlot + geom_jitter(width = 0.7, height = 0.70)  + ggdark::dark_theme_classic()
+# This is the real way which just applies the jitter to a single set of points.
+basePlot + geom_jitter(width = 0.7, height = 0.70)  + theme_few()
 
 # Alpha, make semi-transparent
-basePlot + geom_point(alpha = 0.25)  + ggdark::dark_theme_classic()
+basePlot + geom_point(alpha = 0.25)  + theme_few()
 
 # Make a 2d Density plot 
 basePlot + geom_density_2d_filled(contour_var = 'ndensity') + theme(legend.position = "none") 
 
 # Or use a facet to subset the visual by a group
+head(as.data.frame(player))
 ggplot(data = player) + theme_hc() +
   geom_density_2d_filled( aes(x = plate_x, y = plate_z), contour_var = 'ndensity') + 
   CalledStrike::add_zone(Color = "red") + # Comment this line if you don't have library(CalledStrike) installed

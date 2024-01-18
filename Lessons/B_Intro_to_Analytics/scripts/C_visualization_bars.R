@@ -1,10 +1,10 @@
 #' Author: Ted Kwartler
-#' Data: Feb 16,2023
+#' Data: Jan 18, 2024
 #' Purpose: R bar visual ggplot bars examples
 #' Good resource: https://r-graphics.org/
 
 # wd
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # libs
 library(ggplot2)
@@ -13,7 +13,7 @@ library(lubridate)
 library(qcc)
 
 # Load
-possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/MarthasVineyardCondo.csv')
+possiblePurchase <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/MarthasVineyardCondo.csv')
 
 # Examine
 head(possiblePurchase)
@@ -98,20 +98,5 @@ ggplot(possiblePurchase, aes(x = factor(month), fill = goodMonth)) +
   geom_bar(position = "fill") +
   scale_y_continuous(labels = scales::percent) +
   theme_few()
-
-
-# Pareto charts let you see the values and rate of change, linear, exponential etc.  Maybe against Few's principles though!
-# Simpler to rearrange the data
-df <- data.frame(history            = 1:nrow(possiblePurchase),
-                 Operating.Expenses = possiblePurchase$Operating.Expenses,
-                 cumSumExp          = cumsum(Operating.Expenses = possiblePurchase$Operating.Expenses))
-ggplot(data = df, aes(x= history, y = Operating.Expenses)) +
-  geom_col() + 
-  geom_line(data = df, aes(x=history, y =cumSumExp, color = 'red'))  + 
-  theme_few() +
-  theme(legend.position = "none") 
-
-# Or a convenient package for it
-pareto.chart(df$Operating.Expenses)
 
 # End

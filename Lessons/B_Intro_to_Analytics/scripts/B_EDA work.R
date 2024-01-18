@@ -8,10 +8,10 @@ library(radiant.data)
 library(DataExplorer)
 
 # Set WD
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Data look up on github
-cereal <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/Cereals.csv')
+cereal <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/Cereals.csv')
 
 # What's the overall structure  & dimensions of the data?
 str(   )

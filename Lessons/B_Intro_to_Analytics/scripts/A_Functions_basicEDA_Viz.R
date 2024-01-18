@@ -3,7 +3,7 @@
 #' Purpose: Load data, explore it and visualize it
 
 ## Set the working directory
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 ## Load the libraries; 1st time use install.packages('ggplot2')
 library(ggplot2)
@@ -11,9 +11,9 @@ library(ggthemes)
 library(rbokeh)
 
 ## Bring in some data
-screenTime <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/on_screen_time.csv')
-scenes     <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/force_awakens_scenes.csv')
-characters <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/B_Mar2/data/force_awakens_character_info.csv')
+screenTime <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/on_screen_time.csv')
+scenes     <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/force_awakens_scenes.csv')
+characters <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/data/force_awakens_character_info.csv')
 
 
 ## Exploratory Data Analysis, and indexing
