@@ -1,5 +1,5 @@
 #' Author: Ted Kwartler
-#' Date: 9-22-2022
+#' Date: Jan 18, 2024
 #' Purpose: EDA on a sales dataset
 #' Dataset origination: https://www.kaggle.com/datasets/dhruvkothari19/practice-eda-on-this-sales-dataset?resource=download
 #' 
@@ -11,51 +11,53 @@
 #' What product sold the most and plot the top 6? table() could be helpful
 #' 
 
-# Libraries
-library(ggplot2)
-library(ggthemes)
-library(lubridate)
-options(scipen = 999)
+# Libraries ggplot, ggtheme, lubridate & turn off scientific notation
+library()
+library()
+library()
+options( = )
 
 # Read in the data
-salesData <- read.csv('https://raw.githubusercontent.com/kwartler/Harvard_DataMining_Business_Student/master/Lessons/C_R_practice_Viz_MoreEDA/challenge!/salesData.csv')
+salesData <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/B_Intro_to_Analytics/challenge!/salesData.csv')
 
-# Get a summary of the data
-str(salesData)
-summary(salesData)
+# Get the structure of the data frame, the summary of the data & the top 6 rows
+___()
+_______()
+____()
 
 # change Price.Each column to numeric
-salesData$Price.Each <- as.numeric(salesData$Price.Each)
-
-# Make sure the sales column is numeric
-salesData$Price.Each <- as.numeric(salesData$Price.Each)
+___$___ <- __._______(___$___)
 
 # Make sure the number ordered is numeric
-salesData$Quantity.Ordered <- as.numeric(salesData$Quantity.Ordered)
+___$___ <- __._______(___$___)
 
-# Density plot of Price.Each
-ggplot(data = salesData, aes(x = Price.Each)) + 
-  geom_density() +
-  theme_gdocs() +
-  ggtitle("Distribution of Unit Price")
+# Density plot of Price.Each using a layer called geom_density() 
+# Make it theme_gdocs() and with a ggtitle
+ggplot(data = ___, aes(x = ___)) + 
+  _________() +
+  _________() +
+  _________("Distribution of Unit Price")
 
-# Tally the products
-prodTally <- as.data.frame(table(salesData$Product))
+# Tally the product column
+prodTally <- as.data.frame(_____(___$___))
 
-# Order the tally
-prodTally <- prodTally[order(prodTally$Freq, decreasing = T),]
+# Review
+head(prodTally)
 
-# Select the top 5 products
-topFive <- prodTally[1:5,]
-topFive <- head(prodTally, 5)
+# Order the tally the ROWS with order() applied to the Freq column
+prodTally <- ___[____(___$___, decreasing = T),]
 
-# Create a col chart
-ggplot(data = topFive, aes(x = Var1, y = Freq)) +
-  geom_col() + theme_few() +
-  ggtitle('top 5 product sales') + 
+# Select the top 5 products 2 different ways
+topFive <- prodTally[_:_,]
+topFive <- ____(prodTally, _)
+
+# Create a geom_col chart with theme_few(), & a ggtitle()
+ggplot(data = _____, aes(x = ____, y = ____)) +
+  geom_col() + _______() +
+  _______('top 5 product sales') + 
   theme(axis.text.x = element_text(angle = 90))
 
-# Engineer variables from days
+# Engineer variables from days; just know these exist
 salesData$Order.Date  <- mdy_hm(salesData$Order.Date) #overwrite as a data object
 salesData$dayOfWeek   <- wday(salesData$Order.Date)
 salesData$dayOfMonth  <- mday(salesData$Order.Date)
@@ -66,7 +68,7 @@ salesData$month       <- month(salesData$Order.Date)
 salesData$year        <- year(salesData$Order.Date)
 
 
-# Examine a portion of the data 
+# Examine a portion of the data
 
 # Tally (table) the year column to see if there is any data skew
 
@@ -74,21 +76,21 @@ salesData$year        <- year(salesData$Order.Date)
 # hint: salesData <- subset(data object, column name == 2019) 
 # *remember the double ==* 
 
-# Let's aggregate up by month
-monthlySales <- aggregate(Price.Each ~ month, salesData, sum)
+# Let's aggregate() up Price by month and sum
+monthlySales <- _______(_____ ~ _____, data = ____, ___)
 
-# Change to month name
+# Change to month name; just know R has built in months variables
 monthlySales$month <-  month.name[monthlySales$month]
 
-# Find maximum month
-monthlySales[which.max(monthlySales$Price.Each),]
+# Find maximum month using which.max() on the price each column within the rows side of the comma
+______[_______(____$___),]
 
-# Data prep for visual
+# Data prep for visual; ggplot needs factors otherwise characters will be alphabetical
 monthlySales$month <- factor(monthlySales$month, levels = month.name)
 
-# Plot
-ggplot(monthlySales, aes(x = month, y = Price.Each,  group = 1)) + 
-  geom_line() + 
+# Plot monthlySales month by price each as a geom_line() with 
+ggplot(data = _______, aes(x = ____, y = ____,  group = 1)) + 
+  _______() + 
   scale_x_discrete(limits = month.name) + 
   theme_gdocs() + 
   theme(axis.text.x = element_text(angle = 90)) +
