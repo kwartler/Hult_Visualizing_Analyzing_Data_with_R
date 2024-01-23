@@ -20,13 +20,13 @@ printAllLayouts <- function(pptxObj){
 }
 
 # set wd
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Inputs
 author        <- 'Dale the Data Scientist'
 searchPattern <- 'Wk1' #one could programatically obtain the week of the year using lubridate
-dataPaths     <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/C_Mar6/data'
-templatePath  <- '~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/C_Mar6/data/hult.pptx'
+dataPaths     <- '~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/Lessons/C_Report_Automation/data'
+templatePath  <- '~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/Lessons/C_Report_Automation/data/hult.pptx'
 
 # ID the CSV
 pth <- list.files(path = dataPaths,

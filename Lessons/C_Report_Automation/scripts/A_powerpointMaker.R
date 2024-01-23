@@ -9,7 +9,7 @@ library(ggplot2)
 library(ggthemes)
 
 # Save Path
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Custom helper function to keep it all straight
 printAllLayouts <- function(pptxObj){

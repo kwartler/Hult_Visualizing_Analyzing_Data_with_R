@@ -11,7 +11,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
-library(rbokeh)
+library(echarts4r)
 library(ggplot2)
 library(ggthemes)
 library(DT)
@@ -19,12 +19,13 @@ library(DT)
 # Example layouts: https://pkgs.rstudio.com/flexdashboard/articles/examples.html
 # Change the theme using bootswatch: https://bootswatch.com/default/
 
-# set wd
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+# set wd in a new manner for these types of documents
+knitr::opts_knit$set(root.dir = '~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles')
+# setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Identify the file in the directory
 searchPattern <- 'Wk4'
-pth <- "~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/DD1/C_Mar6/data"
+pth <- "~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/Lessons/C_Report_Automation/data"
 pth <- list.files(path = pth, pattern = searchPattern, full.names = T)
 pth <- pth[grep('*.csv', pth)]
 df  <- read.csv(pth)
@@ -57,22 +58,37 @@ Row {data-height=350}
 ### Relationships Age Num Meds
 
 ```{r scatter1, message=FALSE}
-figure(height=350) %>%
-  ly_points(x=age, y=num_medications,data=df ,
-            hover = list(patient_id, age, num_medications)) %>%
-  x_axis(label='age') %>%
-  y_axis(label='number meds') %>%
-  theme_axis("x", major_label_orientation = 90) 
+df %>%
+  e_charts(age) %>%
+  e_scatter(num_medications, bind = patient_id, symbol_size = 10) %>%
+  e_tooltip(formatter = htmlwidgets::JS(
+    '
+    function(params){
+      return("patient_id: " + params.data.name + "<br/>" + "age: " + params.data.value[0] + "<br/>" + "num_medications: " + params.data.value[1]);
+    }
+    '
+   )) %>%
+  e_x_axis(age, name = 'age') %>%
+  e_y_axis(num_medications, name = 'number meds') %>%
+  e_toolbox_feature(feature = c("saveAsImage", "dataZoom", "dataView")) 
 ```   
     
 ### Relationships Age Num Procedures
 
 ```{r scatter2, message=FALSE}
-figure(height=350) %>%
-  ly_points(x=age, y=num_lab_procedures,data=df ,hover = list(patient_id)) %>%
-  x_axis(label='age') %>%
-  y_axis(label='number meds') %>%
-  theme_axis("x", major_label_orientation = 90) 
+df %>%
+  e_charts(age) %>%
+  e_scatter(num_lab_procedures, bind = patient_id,symbol_size = 10) %>%
+  e_tooltip(formatter = htmlwidgets::JS(
+    '
+    function(params){
+      return("patient_id: " + params.data.name + "<br/>" + "age: " + params.data.value[0] + "<br/>" + "num_lab_procedures: " + params.data.value[1]);
+    }
+    '
+  )) %>%
+  e_x_axis(age, name = 'age') %>%
+  e_y_axis(num_medications, name = 'number meds') %>%
+  e_toolbox_feature(feature = c("saveAsImage", "dataZoom", "dataView")) 
 ```
 
 Row 

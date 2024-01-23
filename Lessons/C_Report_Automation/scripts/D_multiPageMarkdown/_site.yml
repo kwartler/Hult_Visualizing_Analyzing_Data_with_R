@@ -18,7 +18,7 @@ navbar:
         href: goog.html
     - text: "Class GitHub"
       icon: fa-github
-      href: https://github.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R
+      href: https://github.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R
 
 output:
   html_document:
