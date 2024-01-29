@@ -1,0 +1,26 @@
+A4 Feedback
+1/2 done!  Making progress but adding a lot of comments for people
+
+1. slide clutter - agenda, objective, data overview
+2. narration - cadence
+3. report - 
+>>section headers including executive summaries
+
+>>data specificity - "top categories include office supplies" vs "top categories include office supplies (6000).""
+
+>>grammar
+"Three are the area this report will be focusing on"
+
+>>past vs present tense
+"This information allows us to understand our business..." [past] to future tense "we can make informed business decisions..." [future] within the same paragraph
+
+>>active vs passive voice
+Be more clear and direct.  You're the expert!
+"Office supplies lead in frequency, indicating stable demand."
+VS 
+"The demand for office supplies is stable, as shown by their leading frequency."
+Passive voice often has verbs am, is, are, was, were, be, being, been) followed by a past participle (usually ending in "-ed")
+
+>>overly verbose
+ "to ensure they are leading to effective purchase incentives without diminishing profits"
+

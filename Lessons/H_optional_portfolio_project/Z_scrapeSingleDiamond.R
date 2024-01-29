@@ -1,7 +1,7 @@
 #oneDiamond <- 'https://diamondsdirect.com/oval-0-5-f-vs2-307980/?c_id=149&m=category&c=Natural Diamonds'
 #Look at all css classes on the page:
 # onePg <- URLencode(oneDiamond)
-pg <- read_html(onePg)
+# pg <- read_html(onePg)
 #pg %>% 
 #  html_nodes("*") %>% 
 #  html_attr("class") %>% 
@@ -109,24 +109,30 @@ scrapeSingleDiamond <- function(diamondirectURL, waitTime = T){
   response <- data.frame(diamondType, diamondShape,diamondCarat,diamondColor,
                          diamondClarity, diamondPolish, diamondSymmetry,
                          diamondFluorescence, diamondTable, diamondDepth,
-                         diamondX, diamondY, diamondZ, diamondCertification)
+                         diamondX, diamondY, diamondZ, diamondCertification,
+                         diamondPrice)
   
   return(response)
 }
 
 
-tryToScrapeDiamond <- function(diamondirectURL) {
+tryToScrapeDiamond <- function(diamondirectURL, waitTime=T) {
   # Start with NULL value
   response <- NULL
   
   # Try to get the info & capture the error if thrown
   tryError <- tryCatch({
-    response <- scrapeSingleDiamond(diamondirectURL)
+    response <- scrapeSingleDiamond(diamondirectURL, waitTime)
   }, 
-  error = function(e) e)
+  error = function(e) {
+    #print(e)
+    e
+  })
+  
   # if there is an error, set response back to NULL
-  if (inherits(tryError, 'error'))
+  if (inherits(tryError, 'error')) 
     response <- NULL
+  
   return(response)
 }
 

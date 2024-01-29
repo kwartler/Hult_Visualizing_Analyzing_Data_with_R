@@ -1,0 +1,25 @@
+1. Scrape all URLS for each diamond using rvest and save it as a text file 
+# https://diamondsdirect.com/diamonds/
+2. Read in one of the diamond URLS and scrape the attributes of the diamond into a data frame.
+These are the attributes of interest for each diamond which are your column names:
+"diamondType"         
+"diamondShape"        
+"diamondCarat"        
+"diamondColor"        
+"diamondClarity"      
+"diamondPolish"       
+"diamondSymmetry"     
+"diamondFluorescence" 
+"diamondTable"        
+"diamondDepth"        
+"diamondX"            
+"diamondY"            
+"diamondZ"            
+"diamondCertification"
+"diamondPrice"  
+3. Change your single diamond scraping code into a function.  The function should accept a single diamond URL, then return a data frame.
+4. Test this function on a few of the URLs.
+5. Put this function into tryCatch() in case a single diamond scrape fails so that it returns NULL.
+6. Write a loop using the tryCatch version of the single diamond scrape function to scrape the first 10 or 20 diamonds. The entire data set scraping takes 24hrs to collect, so just demonstrate your workflow.   Organize the results of the loop into a single data frame and save it.
+7. Using the data CSV, prepare and create a linear model.
+8. Using the provided functions, render a webform and give it a few tests.
