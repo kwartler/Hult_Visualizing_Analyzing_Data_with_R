@@ -44,7 +44,7 @@ df <- left_join(df, varTypes, by = c('x'='x'))
 df$type[1] <- 'intercept'
 
 
-renderRegressionForm(df, '~/Desktop/Harvard_DataMining_Business_Student/personalFiles/example.html')
+renderRegressionForm(df, '~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles/example.html')
 
 
 
