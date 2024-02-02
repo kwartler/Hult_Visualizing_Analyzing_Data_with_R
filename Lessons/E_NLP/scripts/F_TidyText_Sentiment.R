@@ -5,7 +5,7 @@
 #'
 
 # Set the working directory
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Libs
 library(tidytext)
@@ -38,9 +38,9 @@ cleanCorpus<-function(corpus, customStopwords){
 customStopwords <- c(stopwords('english'))
 
 # Read in multiple files as individuals
-txtFiles<-c('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/G_Mar14/data/starboy.txt',
-            'https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/G_Mar14/data/in_your_eyes.txt',
-            'https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/G_Mar14/data/pharrell_williams_happy.txt') 
+txtFiles<-c('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/E_NLP/data/starboy.txt',
+            'https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/E_NLP/data/in_your_eyes.txt',
+            'https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/E_NLP/data/pharrell_williams_happy.txt') 
 documentTopics <- c("starboy", "eyes", "happy") 
 
 # Read in as a list
@@ -95,11 +95,6 @@ afinnSent
 # Calc
 afinnSent$ValueCount <- afinnSent$value * afinnSent$count 
 afinnSent
-
-# Visualization, keep in mind these are words in alphabetical order, some analysis would use time
-ggplot(afinnSent, aes(idx, ValueCount, fill = document)) +
-  geom_col(show.legend = FALSE) +
-  facet_wrap(~document, ncol = 1, scales = "free_y")
 
 # If you did have a timestamp you can easily make a timeline of sentiment using this code
 # The idx here is not temporal but this is an example if you were tracking over time instead of alpha

@@ -5,7 +5,7 @@
 #'
 
 # Set the working directory
-setwd("~/Desktop/Hult_Visualizing-Analyzing-Data-with-R/personalFiles")
+setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Libs
 library(tm)
@@ -38,7 +38,7 @@ cleanCorpus <- function(corpus, customStopwords){
 customStopwords <- c(stopwords('english'), 'lol', 'smh', 'beer', 'amp')
 
 # Data 
-text <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing-Analyzing-Data-with-R/main/DD1/G_Mar14/data/sivbVector.csv')
+text <- read.csv('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/E_NLP/data/sivbVector.csv')
  
 
 # Build a volatile corpus
