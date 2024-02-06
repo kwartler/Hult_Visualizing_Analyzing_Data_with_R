@@ -37,7 +37,7 @@ renderRegressionForm <- function(lm_obj, original_df, fileName = NULL) {
   # infer variables, and remove any non Word variable names (numbers & (Intercept) )
   df      <- inferVariableTypes(df)
   if(names(coef(lm_obj))[1]=='(Intercept)'){
-    df <- rbind(df, data.frame(x = '(Intercept)', type = 'intercept'))
+    df <- rbind(data.frame(x = '(Intercept)', type = 'intercept'), df)
   } else {
     df$beta <- coef(lm_obj)
   }
