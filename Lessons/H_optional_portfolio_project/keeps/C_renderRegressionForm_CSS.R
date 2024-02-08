@@ -111,7 +111,7 @@ renderRegressionForm_CSS <- function(lm_obj, original_df, fileName = NULL) {
   htmlBody <- tags$body(
     style = "background-color: #A100FF",
     tags$div(
-      style = "max-width: 500px; margin: auto; background-color: #f2f2f2; padding: 20px; border-radius: 5px; box-shadow: 5px 10px #888888; font-family: Arial;",
+      style = "max-width: 500px; overflow-y: auto; margin: auto; background-color: #f2f2f2; padding: 20px; border-radius: 5px; box-shadow: 5px 10px #888888; font-family: Arial;",
       tags$p(sprintf("Intercept: %.2f", intercept), style = "font-size: 18px; text-align:center"),
       myForm  
     )

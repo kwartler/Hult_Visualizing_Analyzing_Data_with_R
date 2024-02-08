@@ -79,35 +79,9 @@ renderRegressionForm(lm_obj      = bestFit,
                      original_df = treatedTrain, 
                      fileName    = 'test3.html')
 
-renderRegressionFormB(lm_obj      = bestFit, 
-                     original_df = treatedTrain, 
-                     fileName    = 'test3.html')
-
-renderRegressionFormC(lm_obj      = bestFit, 
-                      original_df = treatedTrain, 
-                      fileName    = 'test3.html')
-
-renderRegressionFormD(lm_obj      = bestFit, 
-                      original_df = treatedTrain, 
-                      fileName    = 'test3.html')
 
 renderRegressionForm_CSS(lm_obj      = bestFit, 
                       original_df = treatedTrain, 
                       fileName    = 'test3.html')
-
-# Renders but no calc
-source("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/Lessons/H_optional_portfolio_project/keeps/Z_renderRegressionForm_CSS_3.R")
-renderRegressionFormCSS3(lm_obj      = bestFit, 
-                         original_df = treatedTrain, 
-                         fileName    = 'test6.html')
-
-renderRegressionFormCSS_a(lm_obj      = bestFit, 
-                         original_df = treatedTrain, 
-                         fileName    = 'test_NOW1.html')
-
-
-renderRegressionFormCSS5(lm_obj      = bestFit, 
-                         original_df = treatedTrain, 
-                         fileName    = 'test_NOW1.html')
 
 # End
