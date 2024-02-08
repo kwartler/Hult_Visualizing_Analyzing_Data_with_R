@@ -1,5 +1,6 @@
-1. Scrape all URLS for each diamond using rvest and save it as a text file 
-# https://diamondsdirect.com/diamonds/
+Part 1
+1. Go to this page and click through to one single diamond:
+https://diamondsdirect.com/diamonds/
 2. Read in one of the diamond URLS and scrape the attributes of the diamond into a data frame.
 These are the attributes of interest for each diamond which are your column names:
 "diamondType"         
@@ -17,9 +18,26 @@ These are the attributes of interest for each diamond which are your column name
 "diamondZ"            
 "diamondCertification"
 "diamondPrice"  
-3. Change your single diamond scraping code into a function.  The function should accept a single diamond URL, then return a data frame.
+3. Change your single diamond scraping code into a function.  The function should accept a single diamond URL, then return a 1 row data frame.
 4. Test this function on a few of the URLs.
 5. Put this function into tryCatch() in case a single diamond scrape fails so that it returns NULL.
-6. Write a loop using the tryCatch version of the single diamond scrape function to scrape the first 10 or 20 diamonds. The entire data set scraping takes 24hrs to collect, so just demonstrate your workflow.   Organize the results of the loop into a single data frame and save it.
+
+Part 2
+1. Using rvest scrape all pages of diamonds and create a vector of URLs for each single diamond.
+For example: https://diamondsdirect.com/diamonds/?from=10 has multiple diamonds on it.  Scrape the page to identify the unique URL for each diamond.
+2. Apply the tryCatch version of your model to each unique diamond URL
+3. Organize the many single data frames into a one unified data frame.
+4. Save a copy of it.
+
+Part 3 
+1. Build a linear model using the scraped data and predict price.
+
+Part 4 - beta!!
+1. Load the provided functions renderRegressionForm_basic.R and renderRegressionForm_CSS.R
+2. Apply the functions to create a simple webpage of your model where a user could input values.
+3. You can inspect the HTML and make sure its correct, make any color adjustments etc.  This is a beta afterall!
+
+
+Write a loop using the tryCatch version of the single diamond scrape function to scrape the first 10 or 20 diamonds. The entire data set scraping takes 24hrs to collect, so just demonstrate your workflow.   Organize the results of the loop into a single data frame and save it.
 7. Using the data CSV, prepare and create a linear model.
 8. Using the provided functions, render a webform and give it a few tests.

@@ -13,6 +13,7 @@ setwd("~/Desktop/Hult_Visualizing_Analyzing_Data_with_R/personalFiles")
 
 # Custom functions
 source_url("https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/H_optional_portfolio_project/keeps/B_renderRegressionForm_basic.R")
+source_url('https://raw.githubusercontent.com/kwartler/Hult_Visualizing_Analyzing_Data_with_R/main/Lessons/H_optional_portfolio_project/keeps/C_renderRegressionForm_CSS.R')
 
 
 # Data
@@ -77,11 +78,11 @@ MLmetrics::RMSE(y_pred = testPreds, y_true = treatedTest$diamondPrice)
 # WORKS
 renderRegressionForm(lm_obj      = bestFit, 
                      original_df = treatedTrain, 
-                     fileName    = 'test3.html')
+                     fileName    = 'basicPrototype.html')
 
 
 renderRegressionForm_CSS(lm_obj      = bestFit, 
                       original_df = treatedTrain, 
-                      fileName    = 'test3.html')
+                      fileName    = 'cssPrototype.html')
 
 # End
